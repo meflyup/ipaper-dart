@@ -1,0 +1,26 @@
+<!-- Components info: https://webdev.dartlang.org/components -->
+<div>
+    <material-input label="What do you need to do?添加新论文" autoFocus floatingLabel style="width:80%" [(ngModel)]="title">
+    </material-input>
+
+    <material-fab mini raised (trigger)="addPaper(title); title = '';" [disabled]="title.isEmpty">
+        <glyph icon="add"></glyph>
+    </material-fab>
+</div>
+
+<p *ngIf="papers.isEmpty">
+    Nothing to do! Add papers above 什么都没有.
+</p>
+
+<div *ngIf="papers.isNotEmpty">
+    <ul>
+        <li *ngFor="let paper of papers; let i=index">
+            <material-checkbox #done materialTooltip="Mark paper as done">
+            </material-checkbox>
+            <span [class.done]="done.checked" (click)="selectPaper(i)">{{paper.readableTitle}}</span>
+            <material-fab mini (trigger)="removePaper(i)">
+                <glyph icon="delete"></glyph>
+            </material-fab>
+        </li>
+    </ul>
+</div>
