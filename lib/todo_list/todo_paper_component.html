@@ -11,7 +11,19 @@
 <p *ngIf="papers.isEmpty">
     Nothing to do! Add papers above 什么都没有.
 </p>
-<div *ngIf="papers.isNotEmpty">
+<!--<div *ngIf="papers.isNotEmpty">-->
+
+<material-select width="2" class="bordered-list">
+    <material-select-item *ngFor="let paper of papers;let i=index " (trigger)="selectPaper(i)" [selected]="selectPaperIndex==i">
+        {{ paper.readableTitle }}
+        <material-fab style="margin-left:auto;" mini (trigger)="removePaper(i)">
+            <glyph icon="delete"></glyph>
+        </material-fab>
+
+    </material-select-item>
+</material-select>
+<!--</div>-->
+<!--<div *ngIf="papers.isNotEmpty">
     <ul>
         <li *ngFor="let paper of papers; let i=index">
             <material-checkbox #done materialTooltip="Mark paper as done" class="limited-width">
@@ -22,4 +34,4 @@
             </material-fab>
         </li>
     </ul>
-</div>
+</div>-->

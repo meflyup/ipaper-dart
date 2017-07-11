@@ -15,10 +15,18 @@ li material-checkbox {
     vertical-align: middle;
 }
 
-li material-fab {
-    float: right;
+material-select-item {
     vertical-align: middle;
 }
+
+material-fab{
+    margin-left :auto;
+}
+/*li material-fab {
+    float: right;
+    margin-left:auto;
+    vertical-align: middle;
+}*/
 
 .done {
     text-decoration: line-through;

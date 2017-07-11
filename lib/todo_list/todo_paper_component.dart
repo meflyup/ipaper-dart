@@ -21,8 +21,8 @@ final SelectionModel<Paper> targetPaperSelection =
 )
 class TodoPaperComponent implements OnInit {
   final PaperService _paperService;
-
   List<Paper> papers = [];
+  int selectPaperIndex=0;
   String title = '';
   String errorMessage;
   TodoPaperComponent(this._paperService);
@@ -50,6 +50,7 @@ class TodoPaperComponent implements OnInit {
 
   Future<Null> selectPaper(int index) async {
     var paper = papers[index];
+    this.selectPaperIndex=index;
     try {
       _paperService.currentPaper = paper;
     } catch (e) {
