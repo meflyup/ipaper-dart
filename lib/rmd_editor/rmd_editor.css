@@ -1,0 +1,15 @@
+.tab-padding {
+    padding: 0px;
+}
+
+tab-content {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+#rmdeditor {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}

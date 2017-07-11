@@ -18,11 +18,16 @@ import '../utity/observer.dart';
   directives: const [
     CORE_DIRECTIVES,
     materialDirectives,
+
   ],
 )
 class RmdEditor implements OnInit, Observer, AfterViewInit {
   ElementRef _elementRef;
-  static Map options = {'mode': 'markdown', 'theme': 'elegant','lineWrapping':true};
+  static Map options = {
+    'mode': 'markdown',
+    'theme': 'elegant',
+    'lineWrapping': true
+  };
   final PaperService _paperService;
   CodeMirror editor;
   List<Paper> papers = [];
@@ -34,22 +39,43 @@ class RmdEditor implements OnInit, Observer, AfterViewInit {
   }
   update(Object object) {
     Paper paper = object;
+
     editor.getDoc().setValue(UTF8.decode(paper.rmdSource));
+    editor.refresh();
   }
 
   // @override
-  // Future<Null> ngAfterViewChecked() async {}
-  @override
+  // Future<Null> ngAfterViewChecked() async {    Paper paper = await _paperService.currentPaper;
+  //   editor.getDoc().setValue(UTF8.decode(paper.rmdSource));
+  //   editor.setSize('100%', '800px');
+    
+  //   editor.refresh();
+  // }
+  // @override
   ngAfterViewInit() async {
     papers = await _paperService.getPapers();
-    editor =
+    // editor =
+    //     new CodeMirror.fromElement(rmdEditor.nativeElement, options: options);
+     editor =
         new CodeMirror.fromElement(rmdEditor.nativeElement, options: options);
-
+ 
     editor.getDoc().setValue(UTF8.decode(papers[0].rmdSource));
+    editor.setSize('100%', '800px');
+
+    editor.refresh();
   }
 
   @override
   Future<Null> ngOnInit() async {
-    //var rmdEditor = _elementRef.nativeElement.querySelector("#rmdEditor");
+     papers = await _paperService.getPapers();
+   //var rmdEditor = _elementRef.nativeElement.querySelector("#rmdEditor");
+  }
+  void changeToDocument()  {
+    
+    Paper paper =  _paperService.currentPaper;
+    editor.getDoc().setValue(UTF8.decode(paper.rmdSource));
+    editor.setSize('100%', '800px');
+    
+    editor.refresh();
   }
 }

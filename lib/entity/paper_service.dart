@@ -21,6 +21,7 @@ class PaperService {
     notify(paper);
   } // the current paper user is editing.
 
+  Paper get currentPaper => this.paper;
   PaperService(this._http);
   /**
    * register the observer for data change

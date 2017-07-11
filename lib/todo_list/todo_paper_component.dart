@@ -7,7 +7,8 @@ import 'package:angular2/angular2.dart';
 import 'package:angular_components/angular_components.dart';
 import '../entity/paper.dart';
 import '../entity/paper_service.dart';
-
+final SelectionModel<Paper> targetPaperSelection =
+      new SelectionModel.withList(allowMulti: false);
 @Component(
   selector: 'todo-list',
   styleUrls: const ['todo_paper_component.css'],

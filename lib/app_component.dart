@@ -6,6 +6,7 @@ import 'package:angular_components/angular_components.dart';
 
 import 'todo_list/todo_paper_component.dart';
 import 'rmd_editor/rmd_editor.dart';
+import 'md_previewer/md_previewer.dart';
 import './entity/paper_service.dart';
 // AngularDart info: https://webdev.dartlang.org/angular
 // Components info: https://webdev.dartlang.org/components
@@ -14,7 +15,7 @@ import './entity/paper_service.dart';
   selector: 'my-app',
   styleUrls: const ['app_component.css'],
   templateUrl: 'app_component.html',
-  directives: const [materialDirectives, TodoPaperComponent,RmdEditor],
+  directives: const [materialDirectives, TodoPaperComponent,RmdEditor,MdPreviewer],
   providers: const [materialProviders,PaperService],
 )
 class AppComponent {

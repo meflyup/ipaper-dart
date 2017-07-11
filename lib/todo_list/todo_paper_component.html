@@ -11,11 +11,10 @@
 <p *ngIf="papers.isEmpty">
     Nothing to do! Add papers above 什么都没有.
 </p>
-
 <div *ngIf="papers.isNotEmpty">
     <ul>
         <li *ngFor="let paper of papers; let i=index">
-            <material-checkbox #done materialTooltip="Mark paper as done">
+            <material-checkbox #done materialTooltip="Mark paper as done" class="limited-width">
             </material-checkbox>
             <span [class.done]="done.checked" (click)="selectPaper(i)">{{paper.readableTitle}}</span>
             <material-fab mini (trigger)="removePaper(i)">

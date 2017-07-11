@@ -1,3 +1,85 @@
 :host {
     /* This is equivalent of the 'body' selector of a page. */
 }
+
+todo-list {
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.right {
+    float: left;
+    width: 40%;
+    height: 100%;
+    background-color: beige;
+}
+.card {
+  /* Styled like Material Cards. */
+  color: rgba(0, 0, 0, 0.87);
+  background-color: white;
+  border-radius: 2px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2),
+              0 1px 1px 0 rgba(0, 0, 0, .14),
+              0 2px 1px -1px rgba(0, 0, 0, .12);
+  margin: 8px;
+
+  /* Positioned next to each other. */
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+  max-height: 100%;
+  max-width: 40%;
+  min-height: 400px;
+}
+.left{
+  /* Styled like Material Cards. */
+  color: rgba(0, 0, 0, 0.87);
+  background-color: white;
+  border-radius: 2px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2),
+              0 1px 1px 0 rgba(0, 0, 0, .14),
+              0 2px 1px -1px rgba(0, 0, 0, .12);
+  margin: 8px;
+
+  /* Positioned next to each other. */
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+  max-height: 100%;
+  max-width: 20%;
+  min-height: 400px; 
+}
+
+
+.center {
+    float: left;
+    width: 40%;
+    height: 100%;
+    background-color: beige;
+}
+
+.left {
+    float: left;
+    width: 20%;
+    height: 100%;
+    background-color: yellow;
+}
+.main {
+  align-items: stretch;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin: 32px;
+}
+
