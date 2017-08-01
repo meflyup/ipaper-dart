@@ -18,7 +18,6 @@ import '../utity/observer.dart';
   directives: const [
     CORE_DIRECTIVES,
     materialDirectives,
-
   ],
 )
 class RmdEditor implements OnInit, Observer, AfterViewInit {
@@ -31,15 +30,19 @@ class RmdEditor implements OnInit, Observer, AfterViewInit {
   final PaperService _paperService;
   CodeMirror editor;
   List<Paper> papers = [];
+  int paperIndex = 0; //当前正在编辑的paper在list中的索引;
   @ViewChild("rmdEditor")
   var rmdEditor;
+  @ViewChild("tabs")
+  MaterialTabComponent tabComponent;
   RmdEditor(this._paperService, this._elementRef) {
     _paperService.register(
         this); //make sure when the currentPaper is update in the rmd ediror;
   }
   update(Object object) {
     Paper paper = object;
-
+    int index=object;
+    paper=_paperService.papers[index];
     editor.getDoc().setValue(UTF8.decode(paper.rmdSource));
     editor.refresh();
   }
@@ -48,18 +51,20 @@ class RmdEditor implements OnInit, Observer, AfterViewInit {
   // Future<Null> ngAfterViewChecked() async {    Paper paper = await _paperService.currentPaper;
   //   editor.getDoc().setValue(UTF8.decode(paper.rmdSource));
   //   editor.setSize('100%', '800px');
-    
+
   //   editor.refresh();
   // }
   // @override
   ngAfterViewInit() async {
     papers = await _paperService.getPapers();
+
+    paperIndex = _paperService.currentPaperIndex;
     // editor =
     //     new CodeMirror.fromElement(rmdEditor.nativeElement, options: options);
-     editor =
+    editor =
         new CodeMirror.fromElement(rmdEditor.nativeElement, options: options);
- 
-    editor.getDoc().setValue(UTF8.decode(papers[0].rmdSource));
+    editor.onChange.listen((e) => onDataChange(e, paperIndex));
+    editor.getDoc().setValue(UTF8.decode(papers[paperIndex].rmdSource));
     editor.setSize('100%', '800px');
 
     editor.refresh();
@@ -67,15 +72,24 @@ class RmdEditor implements OnInit, Observer, AfterViewInit {
 
   @override
   Future<Null> ngOnInit() async {
-     papers = await _paperService.getPapers();
-   //var rmdEditor = _elementRef.nativeElement.querySelector("#rmdEditor");
+    // papers = await _paperService.getPapers();
+    //var rmdEditor = _elementRef.nativeElement.querySelector("#rmdEditor");
   }
-  void changeToDocument()  {
-    
-    Paper paper =  _paperService.currentPaper;
-    editor.getDoc().setValue(UTF8.decode(paper.rmdSource));
-    editor.setSize('100%', '800px');
-    
-    editor.refresh();
+
+  void changeToDocumentTab() {
+    if (tabComponent.tabId == 0) {
+      Paper paper = _paperService.papers[paperIndex];
+      editor.getDoc().setValue(UTF8.decode(paper.rmdSource));
+      editor.setSize('100%', '800px');
+
+      editor.refresh();
+    }
   }
+
+  void onDataChange(event, int index) {
+    papers[index].rmdSource = editor.getDoc().getValue();
+  }
+
+  @override
+  String toString() {}
 }

@@ -13,12 +13,21 @@ class PaperService {
     'charset': 'utf-8'
   };
   Paper paper;
+  int index;
+  int get currentPaperIndex => index;
+  void set currentPaperIndex(int index) {
+    if (this.index != index) {
+      this.index = index;
+      notify(index);
+    }
+  }
+
   List<Object> observers = [];
   static const _paperesUrl = 'apix/paperes'; // URL to web API
   final Client _http;
   void set currentPaper(Paper paper) {
     this.paper = paper;
-    notify(paper);
+    // notify(paper);
   } // the current paper user is editing.
 
   Paper get currentPaper => this.paper;
@@ -35,18 +44,20 @@ class PaperService {
     }
   }
 
-  notify(Paper paper) {
+  notify(int index) {
     for (Observer observer in observers) {
-      observer.update(paper);
+      observer.update(index);
     }
   }
 
+  List<Paper> papers = [];
   Future<List<Paper>> getPapers() async {
     try {
       final response = await _http.get(_paperesUrl);
-      final papers = _extractData(response)
+      papers = _extractData(response)
           .map((value) => new Paper.fromJson(value))
           .toList();
+      currentPaperIndex = 0;
       return papers;
     } catch (e) {
       throw _handleError(e);

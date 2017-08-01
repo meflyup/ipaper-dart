@@ -3,7 +3,7 @@
 
 import 'package:angular2/angular2.dart';
 import 'package:angular_components/angular_components.dart';
-
+import 'dart:async';
 import 'todo_list/todo_paper_component.dart';
 import 'rmd_editor/rmd_editor.dart';
 import 'md_previewer/md_previewer.dart';
@@ -15,9 +15,25 @@ import './entity/paper_service.dart';
   selector: 'my-app',
   styleUrls: const ['app_component.css'],
   templateUrl: 'app_component.html',
-  directives: const [materialDirectives, TodoPaperComponent,RmdEditor,MdPreviewer],
-  providers: const [materialProviders,PaperService],
+  directives: const [
+    materialDirectives,
+    TodoPaperComponent,
+    RmdEditor,
+    MdPreviewer
+  ],
+  providers: const [materialProviders, PaperService],
 )
-class AppComponent {
+class AppComponent implements OnInit {
   // Nothing here yet. All logic is in TodoListComponent.
+  String errorMessage;
+  final PaperService _paperService;
+  AppComponent(this._paperService);
+  @override
+  Future<Null> ngOnInit() async {
+    try {
+      await _paperService.getPapers();
+    } catch (e) {
+      errorMessage = e.toString();
+    }
+  }
 }

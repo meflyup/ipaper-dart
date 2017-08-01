@@ -31,7 +31,7 @@ class TodoPaperComponent implements OnInit {
   @override
   Future<Null> ngOnInit() async {
     try {
-      papers = await _paperService.getPapers();
+      // papers = await _paperService.getPapers();
       // _paperService.currentPaper = papers[0];
     } catch (e) {
       errorMessage = e.toString();
@@ -50,9 +50,9 @@ class TodoPaperComponent implements OnInit {
 
   Future<Null> selectPaper(int index) async {
     var paper = papers[index];
-    this.selectPaperIndex=index;
+    _paperService.currentPaperIndex=index;
     try {
-      _paperService.currentPaper = paper;
+      // _paperService.currentPaper = paper;
     } catch (e) {
       errorMessage = e.toString();
     }

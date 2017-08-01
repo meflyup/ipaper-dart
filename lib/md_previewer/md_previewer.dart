@@ -23,7 +23,7 @@ import 'package:mdown/mdown.dart';
   ],
 )
 class MdPreviewer implements OnInit, Observer, AfterViewInit {
-   ElementRef _elementRef;
+  ElementRef _elementRef;
   static Map options = {
     'mode': 'html',
     'theme': 'elegant',
@@ -34,14 +34,14 @@ class MdPreviewer implements OnInit, Observer, AfterViewInit {
   List<Paper> papers = [];
   @ViewChild("mdPreviewer")
   var mdPreviewer;
-  MdPreviewer(this._paperService,this._elementRef) {
+  MdPreviewer(this._paperService, this._elementRef) {
     _paperService.register(
         this); //make sure when the currentPaper is update in the rmd ediror;
   }
   update(Object object) {
     Paper paper = object;
     String rmdSource = UTF8.decode(papers[0].rmdSource);
-    DivElement htmlDiv= mdPreviewer.nativeElement;
+    DivElement htmlDiv = mdPreviewer.nativeElement;
     htmlDiv.setInnerHtml(markdownToHtml(rmdSource));
   }
 
@@ -49,10 +49,12 @@ class MdPreviewer implements OnInit, Observer, AfterViewInit {
   // Future<Null> ngAfterViewChecked() async {}
   @override
   ngAfterViewInit() async {
-    papers = await _paperService.getPapers();
-    String rmdSource = UTF8.decode(papers[0].rmdSource);
-     DivElement htmlDiv= mdPreviewer.nativeElement;
- htmlDiv.setInnerHtml(markdownToHtml(rmdSource));
+    // papers = await _paperService.getPapers();
+    int index = _paperService.currentPaperIndex;
+    Paper paper = _paperService.papers[index];
+    String rmdSource = UTF8.decode(paper.rmdSource);
+    DivElement htmlDiv = mdPreviewer.nativeElement;
+    htmlDiv.setInnerHtml(markdownToHtml(rmdSource));
   }
 
   @override
